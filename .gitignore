@@ -1,4 +1,20 @@
 /.env
-/.env.example
 /.venv
 /data
+
+# Dumps do banco de dados
+caged_dump.sql
+caged_dump.sql.gz
+
+# Cache do Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Checkpoints do Jupyter Notebook
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# Arquivos do sistema
+.DS_Store

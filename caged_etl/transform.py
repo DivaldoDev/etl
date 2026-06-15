@@ -76,15 +76,29 @@ def build_curated(
         .is_between(settings.ano_inicio, settings.ano_fim)
     )
 
-    # 2. tipagem
-    lf = lf.with_columns(
-        pl.col("salario")
-        .str.replace_all(r"\.", "")        # remove eventual separador de milhar
-        .str.replace(",", ".")             # vírgula decimal -> ponto
+    # 2. tipagem e tratamento de centavos
+    # Parse inteligente: se contiver ',', remove '.' (separador de milhar) e troca ',' por '.'
+    # Se não contiver ',', o '.' já é o separador decimal (ex: 2643.4299)
+    sal_expr = (
+        pl.when(pl.col("salario").str.contains(","))
+        .then(pl.col("salario").str.replace_all(r"\.", "").str.replace(",", "."))
+        .otherwise(pl.col("salario"))
         .cast(pl.Float64, strict=False)
-        .alias("salario"),
+    )
+
+    lf = lf.with_columns(
+        sal_expr.alias("salario"),
         pl.col("idade").cast(pl.Int32, strict=False),
         pl.col("saldo_movimentacao").cast(pl.Int32, strict=False),
+    )
+
+    # Corrige salários informados em centavos (sem separador decimal adequado).
+    # Valores acima de 50.000 são corrigidos dividindo por 100.
+    lf = lf.with_columns(
+        pl.when(pl.col("salario") > 50000.0)
+        .then(pl.col("salario") / 100.0)
+        .otherwise(pl.col("salario"))
+        .alias("salario")
     )
 
     # 3. nulos críticos
