@@ -1,0 +1,41 @@
+[project]
+name = "caged-etl"
+version = "0.1.0"
+description = "ETL do Novo CAGED — Maceió x Arapiraca (medallion: FTP -> raw -> curated -> Postgres)"
+readme = "README.md"
+# Fixado em 3.12: cobertura de wheels estável para polars/pyarrow/psycopg.
+# O uv baixa essa versão automaticamente se não estiver presente.
+requires-python = ">=3.11,<3.13"
+
+dependencies = [
+    "polars>=1.0",
+    "pyarrow>=16",
+    "py7zr>=0.21",
+    "pandas>=2.2",
+    "pydantic-settings>=2.2",
+    "python-dotenv>=1.0",
+    "sqlalchemy>=2.0",
+    "psycopg[binary]>=3.2",
+    "openpyxl>=3.1",
+    "tqdm>=4.66",
+]
+
+[project.optional-dependencies]
+notebook = [
+    "jupyterlab>=4.2",
+    "ipykernel>=6.29",
+    "matplotlib>=3.9",
+    "seaborn>=0.13",
+    "plotly>=5.22",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["caged_etl"]
+
+[tool.uv]
+# Instala também o grupo de notebooks por padrão no ambiente de dev.
+default-groups = []

@@ -1,0 +1,12 @@
+codigo,descricao
+1,Zero
+2,De 1 a 4
+3,De 5 a 9
+4,De 10 a 19
+5,De 20 a 49
+6,De 50 a 99
+7,De 100 a 249
+8,De 250 a 499
+9,De 500 a 999
+10,1000 ou mais
+-1,Não Identificado

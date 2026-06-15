@@ -1,0 +1,16 @@
+codigo,descricao
+10,Admissão por primeiro emprego
+20,Admissão por reemprego
+25,Admissão por contrato de trabalho por prazo determinado
+31,Admissão por reintegração
+35,Admissão por transferência
+40,Desligamento por demissão sem justa causa
+43,Desligamento por demissão com justa causa
+45,Desligamento por término de contrato
+50,Desligamento por transferência
+60,Desligamento por aposentadoria
+70,Desligamento por morte
+80,Desligamento por acordo entre empregado e empregador
+90,Desligamento a pedido
+97,Desligamento por término de contrato por prazo determinado
+98,Desligamento por término de contrato de experiência
